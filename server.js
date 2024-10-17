@@ -9,7 +9,7 @@ app.use(express.json());
 
 // Router middleware
 app.use(require("./api/auth").router);
-//app.use("/playlists", require("./api/playlists"));
+app.use("/playlists", require("./api/playlists"));
 app.use("/tracks", require("./api/tracks"));
 
 // 404 middleware

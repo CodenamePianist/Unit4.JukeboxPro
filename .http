@@ -13,6 +13,7 @@ Content-Type: application/json
 }
 
 ### Login an existing user
+# @name login
 POST {{host}}/login
 Content-Type: application/json
 
@@ -20,3 +21,30 @@ Content-Type: application/json
     "username": "Trixie.Mattel",
     "password": "test"
 }
+
+### Get a user's playlists
+@token = {{login.response.body.token}}
+GET {{host}}/playlists
+Authorization: Bearer {{token}}
+
+### Create a new playlist
+POST {{host}}/playlists
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Clarity",
+    "description": "You are the piece of me I wish I didn't need",
+    "trackIds": [2, 4, 6, 8]
+}
+
+### Get a specific playlist
+GET {{host}}/playlists/1
+Authorization: Bearer {{token}}
+
+### Get a specific song
+GET {{host}}/tracks/16
+
+### Get a specific song as a user
+GET {{host}}/tracks/8
+Authorization: Bearer {{token}}
