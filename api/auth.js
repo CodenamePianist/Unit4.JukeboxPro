@@ -39,6 +39,27 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
+router.post("/login", async (req, res, next) => {
+  const { username, password } = req.body;
+  try {
+    const user = await prisma.user.login(username, password);
+    const token = createToken(user.id);
+    res.json({ token });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// This function checks to see if a token is provided
+function authenticate(req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    next({ status: 401, message: "You must be logged in." });
+  }
+}
+
 module.exports = {
   router,
+  authenticate,
 };
