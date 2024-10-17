@@ -11,3 +11,12 @@ Content-Type: application/json
     "username": "Trixie.Mattel",
     "password": "test"
 }
+
+### Login an existing user
+POST {{host}}/login
+Content-Type: application/json
+
+{
+    "username": "Trixie.Mattel",
+    "password": "test"
+}
