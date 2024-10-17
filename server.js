@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 const express = require("express");
 const app = express();
 const PORT = 3000;
@@ -9,7 +8,7 @@ app.use(require("morgan")("dev"));
 app.use(express.json());
 
 // Router middleware
-//app.use(require("./api/auth").router);
+app.use(require("./api/auth").router);
 //app.use("/playlists", require("./api/playlists"));
 app.use("/tracks", require("./api/tracks"));
 

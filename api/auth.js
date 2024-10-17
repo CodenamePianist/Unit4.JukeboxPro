@@ -4,8 +4,8 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 
-async function createToken(id) {
-  jwt.sign({ id }, JWT_SECRET, { expiresIn: "1d" });
+function createToken(id) {
+  return jwt.sign({ id }, JWT_SECRET, { expiresIn: "1d" });
 }
 
 const prisma = require("../prisma");
@@ -27,3 +27,18 @@ router.use(async (req, res, next) => {
     next(error);
   }
 });
+
+router.post("/register", async (req, res, next) => {
+  const { username, password } = req.body;
+  try {
+    const user = await prisma.user.register(username, password);
+    const token = createToken(user.id);
+    res.status(201).json({ token });
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = {
+  router,
+};
